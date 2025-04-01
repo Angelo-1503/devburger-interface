@@ -10,11 +10,11 @@ export const Container = styled.div`
         overflow: visible;
     }
 
-    .react-multi-carousel_arrow--right {
+    .react-multiple-carousel__arrow--right {
        top: 10px;
     }
 
-    .react-multi-carousel_arrow--left {
+    .react-multiple-carousel__arrow--left {
         top: 10px;
         left: 15px;
     }
