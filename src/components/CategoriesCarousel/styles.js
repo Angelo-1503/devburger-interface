@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
     .carousel-item {
@@ -45,12 +46,16 @@ export const ContainerItems = styled.div`
     background-position: center;
     border-radius: 20px;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+    justify-content: center;
     padding: 20px 10px;
     width: 100%;
     height: 250px;
 
-    p{
+    
+`
+
+export const CategoryButton = styled(Link)`
         color: #fff;
         background-color: rgba(0,0,0,0.5);
         padding: 10px 30px;
@@ -58,5 +63,11 @@ export const ContainerItems = styled.div`
         font-size: 22.5px;
         font-weight: bold;
         margin-top: 50px;
-    }
+        text-decoration: none;
+        font-weight: 500;
+
+        &:hover {
+            background-color: #9758a6;
+            color: #fff;
+        }
 `

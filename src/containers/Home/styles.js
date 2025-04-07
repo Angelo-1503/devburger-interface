@@ -15,6 +15,7 @@ export const Banner = styled.div`
         color: #f4f4f4;
         position: absolute;
         right: 20%;
+        margin-top: 100px;
     }
 `
 
@@ -29,5 +30,3 @@ export const Container = styled.section`
 
 `
 
-export const Content = styled.div`
-`
