@@ -46,7 +46,7 @@ export const Title = styled.div`
         bottom: 0;
         width: 56px;
         height: 4px;
-        background-color: #9758A6;
+        background-color: ${(props) => props.theme.purple};
     }
 `;
 

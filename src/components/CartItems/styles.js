@@ -20,7 +20,7 @@ export const ButtonGroup = styled.div`
         width: 30px;
         color: #fff;
         border-radius: 4px;
-        background-color: #9758a6;
+        background-color: ${(props) => props.theme.purple};
         border: none;
 
         &:hover{

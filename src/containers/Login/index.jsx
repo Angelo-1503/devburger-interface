@@ -1,29 +1,39 @@
-import { useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { useNavigate } from "react-router-dom"
-import * as yup from "yup"
-import { toast } from "react-toastify"
-import { useUser } from "../../hooks/UserContext";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
+import { toast } from 'react-toastify';
+import { useUser } from '../../hooks/UserContext';
 
-
-import { Container, Form, InputContainer, LeftContainer, RightContainer, Title, Link } from "./styles";
-import Logo from "../../assets/logo.svg";
-import { Button } from "../../components/Button";
-import { api } from "../../services/api"
-
+import {
+  Container,
+  Form,
+  InputContainer,
+  LeftContainer,
+  RightContainer,
+  Title,
+  Link,
+} from './styles';
+import Logo from '../../assets/logo.svg';
+import { Button } from '../../components/Button';
+import { api } from '../../services/api';
 
 export function Login() {
-  const navigate = useNavigate()
-  const { putUserData } = useUser()
-
-
+  const navigate = useNavigate();
+  const { putUserData } = useUser();
 
   const schema = yup
     .object({
-      email: yup.string().email('Digite um e-mail válido').required('O e-mail é obrigatório'),
-      password: yup.string().min(6, 'A senha deve ter pelo menos 6 caracteres').required('Digite uma senha'),
+      email: yup
+        .string()
+        .email('Digite um e-mail válido')
+        .required('O e-mail é obrigatório'),
+      password: yup
+        .string()
+        .min(6, 'A senha deve ter pelo menos 6 caracteres')
+        .required('Digite uma senha'),
     })
-    .required()
+    .required();
 
   const {
     register,
@@ -31,9 +41,7 @@ export function Login() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-  })
-
-
+  });
 
   const onSubmit = async (data) => {
     const { data: userData } = await toast.promise(
@@ -46,27 +54,27 @@ export function Login() {
         success: {
           render: () => {
             setTimeout(() => {
-              navigate('/')
-            }, 2000)
-            return 'Login realizado com sucesso!'
+              if (userData?.admin) {
+                navigate('/admin/pedidos');
+              } else {
+                navigate('/');
+              }
+            }, 2000);
+            return 'Login realizado com sucesso!';
           },
         },
-        error: 'Email ou senha Incorretos!'
+        error: 'Email ou senha Incorretos!',
       },
     );
     putUserData(userData);
     //localStorage.setItem('token', token);
-
-  }
-
-
+  };
 
   return (
     <Container>
       <LeftContainer>
         <img src={Logo} alt="Logo-devburger" />
       </LeftContainer>
-
 
       <RightContainer>
         <Title>
@@ -77,20 +85,21 @@ export function Login() {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <InputContainer>
             <label>Email</label>
-            <input type="email" {...register("email")} />
+            <input type="email" {...register('email')} />
             <p>{errors?.email?.message}</p>
           </InputContainer>
 
           <InputContainer>
             <label>Senha</label>
-            <input type="password"  {...register("password")} />
+            <input type="password" {...register('password')} />
             <p>{errors?.password?.message}</p>
           </InputContainer>
           <Button type="submit">Entrar</Button>
-
         </Form>
 
-        <p>Não possui conta? <Link to="/cadastro">Clique aqui</Link></p>
+        <p>
+          Não possui conta? <Link to="/cadastro">Clique aqui</Link>
+        </p>
       </RightContainer>
     </Container>
   );
